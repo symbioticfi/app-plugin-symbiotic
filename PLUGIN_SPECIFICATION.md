@@ -18,6 +18,16 @@ Smart contracts covered by the plugin shall be described here:
 | Ethereum | Symbiotic (swETH)   | `0x38b86004842d3fa4596f0b7a0b53de90745ab654` |
 | Ethereum | Symbiotic (sfrxETH) | `0x5198cb44d7b2e993ebdda9cad3b9a0eaa32769d2` |
 | Ethereum | Symbiotic (ETHx)    | `0xbdea8e677f9f7c294a4556005c640ee505be6925` |
+| Ethereum | Symbiotic (ENA)     | `0xe39B5f5638a209c1A6b6cDFfE5d37F7Ac99fCC84` |
+| Ethereum | Symbiotic (sUSDe)   | `0x19d0D8e6294B7a04a2733FE433444704B791939A` |
+| Ethereum | Symbiotic (WBTC)    | `0x971e5b5D4baa5607863f3748FeBf287C7bf82618` |
+| Ethereum | Symbiotic (tBTC)    | `0x0C969ceC0729487d264716e55F232B404299032c` |
+| Ethereum | Symbiotic (LsETH)   | `0xB09A50AcFFF7D12B7d18adeF3D1027bC149Bad1c` |
+| Ethereum | Symbiotic (osETH)   | `0x52cB8A621610Cc3cCf498A1981A8ae7AD6B8AB2a` |
+| Ethereum | Symbiotic (ETHFI)   | `0x21DbBA985eEA6ba7F27534a72CCB292eBA1D2c7c` |
+| Ethereum | Symbiotic (FXS)     | `0x940750A267c64f3BBcE31B948b67CD168f0843fA` |
+| Ethereum | Symbiotic (LBTC)    | `0x9c0823d3a1172f9ddf672d438dec79c39a64f448` |
+| Ethereum | Symbiotic (SWELL)   | `0x544f45485418341C1a2B3a44404F12302277fFFC` |
 
 ## Functions
 
