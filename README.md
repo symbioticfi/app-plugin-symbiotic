@@ -1,40 +1,22 @@
-[![Ensure compliance with Ledger guidelines](https://github.com/LedgerHQ/app-plugin-boilerplate/actions/workflows/guidelines_enforcer.yml/badge.svg?branch=develop)](https://github.com/LedgerHQ/app-plugin-boilerplate/actions/workflows/guidelines_enforcer.yml)
-[![Compilation & tests](https://github.com/LedgerHQ/app-plugin-boilerplate/actions/workflows/build_and_functional_tests.yml/badge.svg?branch=develop)](https://github.com/LedgerHQ/app-plugin-boilerplate/actions/workflows/build_and_functional_tests.yml)
+# Plugin for Symbiotic contracts
 
+This repository contains code for the plugin for Symbiotic contracts.
 
-# app-plugin-boilerplate
+## Smart Contracts and functions
 
-This repo is meant to be a forkable example of a plugin.
+The implemented Smart Contracts and functions can be found in
+[PLUGIN_SPECIFICATION.md](./PLUGIN_SPECIFICATION.md)
 
-Plugins are lightweight applications that go hand-in-hand with the Ethereum
-Application on a Nano (S plus, X), Stax and Flex devices.
+## Testing
 
-They allow users to safely interact with smart contracts by parsing the
-transaction data and displaying its content in a human-readable way. This is
-done on a "per contract" basis, meaning a plugin is required for every DApp.
+For testing, we use [Ragger](https://github.com/LedgerHQ/ragger) for
+simulating a Ledger device, to run the tests, use the Ledger plugin on VSCode or
+run them with:
 
-The code has been commented, and special "EDIT THIS" comments indicate where
-developers are expected to adapt the code to their own needs.
+```bash
+pip3 install -r ./tests/requirements.txt
+```
 
-It is STRONGLY recommended to follow the
-[plugin guide](https://ethereum-plugin-sdk.ledger.com/)
-in order to better understand the flow and the context for plugins.
-
-## Ethereum SDK
-
-Ethereum plugins need the [Ethereum SDK](https://github.com/LedgerHQ/ethereum-plugin-sdk).
-You can use the `ETHEREUM_PLUGIN_SDK` variable to point to the directory where you cloned
-this repository. By default, the `Makefile` expects it to be at the root directory of this
-plugin repository by the `ethereum-plugin-sdk` name.
-
-You can see that this [CI](https://github.com/LedgerHQ/app-plugin-boilerplate/blob/develop/.github/workflows/check_sdk.yml) workflow
-verifies that the SDK used is either on the latest `master` or `develop` references. This ensures
-the code is compiled and tested on the latest version of the SDK.
-
-## Documentation
-
-The documentation about the plugin shall be added in [PLUGIN_SPECIFICATON.md](https://github.com/LedgerHQ/app-plugin-boilerplate/blob/develop/PLUGIN_SPECIFICATION.md). It shall includes at least the smart contracts and functions supported by the plugin.
-
-## Formatting
-
-The C source code is expected to be formatted with `clang-format` 11.0.0 or higher.
+```bash
+pytest ./tests --device <nanox/nanosp/stax/flex>
+```

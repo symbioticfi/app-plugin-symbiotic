@@ -16,7 +16,7 @@
 # ****************************************************************************
 
 # EDIT THIS: Application name
-APPNAME = "PluginBoilerplate"
+APPNAME = "Symbiotic"
 
 # Application version
 APPVERSION_M = 1

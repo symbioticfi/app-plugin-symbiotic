@@ -1,38 +1,61 @@
 #include "plugin.h"
+#include "utils.h"
 
-// EDIT THIS: Remove this function and write your own handlers!
-static void handle_swap_exact_eth_for_tokens(ethPluginProvideParameter_t *msg, context_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+void handle_symbiotic_deposit_issue_debt_withdraw(ethPluginProvideParameter_t *msg,
+                                                  context_t *context) {
     switch (context->next_param) {
-        case MIN_AMOUNT_RECEIVED:  // amountOutMin
-            copy_parameter(context->amount_received,
-                           msg->parameter,
-                           sizeof(context->amount_received));
-            context->next_param = PATH_OFFSET;
+        case RECEIVER:
+            copy_address(context->receiver, msg->parameter, sizeof(context->receiver));
+            context->next_param = SHARES;
             break;
-        case PATH_OFFSET:  // path
-            context->offset = U2BE(msg->parameter, PARAMETER_LENGTH - 2);
-            context->next_param = BENEFICIARY;
-            break;
-        case BENEFICIARY:  // to
-            copy_address(context->beneficiary, msg->parameter, sizeof(context->beneficiary));
-            context->next_param = PATH_LENGTH;
-            context->go_to_offset = true;
-            break;
-        case PATH_LENGTH:
-            context->offset = msg->parameterOffset - SELECTOR_SIZE + PARAMETER_LENGTH * 2;
-            context->go_to_offset = true;
-            context->next_param = TOKEN_RECEIVED;
-            break;
-        case TOKEN_RECEIVED:  // path[1] -> contract address of token received
-            copy_address(context->token_received, msg->parameter, sizeof(context->token_received));
+
+        case SHARES:
+            copy_parameter(context->vault_shares, msg->parameter, sizeof(context->vault_shares));
             context->next_param = UNEXPECTED_PARAMETER;
             break;
+
+        // Keep this
+        default:
+            PRINTF("Param not supported: %d\n", context->next_param);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+void handle_symbiotic_deposit_sig(ethPluginProvideParameter_t *msg, context_t *context) {
+    switch (context->next_param) {
+        case RECEIVER:
+            copy_address(context->receiver, msg->parameter, sizeof(context->receiver));
+            context->next_param = SHARES;
+            break;
+
+        case SHARES:
+            copy_parameter(context->vault_shares, msg->parameter, sizeof(context->vault_shares));
+            context->next_param = DEADLINE;
+            break;
+
+        case DEADLINE:
+            copy_parameter(context->timestamp, msg->parameter, sizeof(context->timestamp));
+            context->next_param = SIGNATURE_1;
+            break;
+
+        case SIGNATURE_1:
+            copy_parameter(context->signature1 + 15, msg->parameter + 31, 1);
+            context->next_param = SIGNATURE_2;
+            break;
+
+        case SIGNATURE_2:
+            copy_parameter(context->exit_queue_index, msg->parameter, 3);
+            copy_parameter(context->exit_queue_index + 3, msg->parameter + 29, 3);
+            context->next_param = SIGNATURE_3;
+            break;
+
+        case SIGNATURE_3:
+            copy_parameter(context->exit_queue_index + 6, msg->parameter, 3);
+            copy_parameter(context->exit_queue_index + 9, msg->parameter + 29, 3);
+            context->next_param = UNEXPECTED_PARAMETER;
+            break;
+
         // Keep this
         default:
             PRINTF("Param not supported: %d\n", context->next_param);
@@ -55,11 +78,16 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
 
     // EDIT THIS: adapt the cases and the names of the functions.
     switch (context->selectorIndex) {
-        case SWAP_EXACT_ETH_FOR_TOKENS:
-            handle_swap_exact_eth_for_tokens(msg, context);
+        case SYMBIOTIC_DEPOSIT:
+        case SYMBIOTIC_ISSUE_DEBT:
+        case SYMBIOTIC_WITHDRAW:
+            handle_symbiotic_deposit_issue_debt_withdraw(msg, context);
             break;
-        case BOILERPLATE_DUMMY_2:
+
+        case SYMBIOTIC_DEPOSIT_SIG:
+            handle_symbiotic_deposit_sig(msg, context);
             break;
+
         default:
             PRINTF("Selector Index not supported: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
