@@ -45,14 +45,14 @@ void handle_symbiotic_deposit_sig(ethPluginProvideParameter_t *msg, context_t *c
             break;
 
         case SIGNATURE_2:
-            copy_parameter(context->exit_queue_index, msg->parameter, 3);
-            copy_parameter(context->exit_queue_index + 3, msg->parameter + 29, 3);
+            copy_parameter(context->signature2, msg->parameter, 3);
+            copy_parameter(context->signature2 + 3, msg->parameter + 29, 3);
             context->next_param = SIGNATURE_3;
             break;
 
         case SIGNATURE_3:
-            copy_parameter(context->exit_queue_index + 6, msg->parameter, 3);
-            copy_parameter(context->exit_queue_index + 9, msg->parameter + 29, 3);
+            copy_parameter(context->signature2 + 6, msg->parameter, 3);
+            copy_parameter(context->signature2 + 9, msg->parameter + 29, 3);
             context->next_param = UNEXPECTED_PARAMETER;
             break;
 

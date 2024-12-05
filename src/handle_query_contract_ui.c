@@ -55,12 +55,12 @@ static bool symbiotic_deposit_sig_ui(ethQueryContractUI_t *msg, const context_t 
 
         case 3:
             strlcpy(msg->title, "R", msg->titleLength);
-            display_first_and_last_bytes(msg, (uint8_t *) context->exit_queue_index, 6, 3);
+            display_first_and_last_bytes(msg, (uint8_t *) context->signature2, 6, 3);
             return true;
 
         case 4:
             strlcpy(msg->title, "S", msg->titleLength);
-            display_first_and_last_bytes(msg, (uint8_t *) context->exit_queue_index + 6, 6, 3);
+            display_first_and_last_bytes(msg, (uint8_t *) context->signature2 + 6, 6, 3);
             return true;
 
         case 5:
