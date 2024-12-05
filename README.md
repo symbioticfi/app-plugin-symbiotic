@@ -1,3 +1,5 @@
+### **Thanks to [ChorusOne](https://chorus.one/) for providing an integration-ready plugin!**
+
 # Plugin for Symbiotic contracts
 
 This repository contains code for the plugin for Symbiotic contracts.
