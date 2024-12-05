@@ -25,10 +25,10 @@
 // A Xmacro below will create for you:
 //     - an enum named selector_t with every NAME
 //     - a map named SELECTORS associating each NAME with it's value
-#define SELECTORS_LIST(X)                                \
-    X(SYMBIOTIC_DEPOSIT, 0x47e7ef24)                     \
-    X(SYMBIOTIC_DEPOSIT_SIG, 0xc5758489)                 \
-    X(SYMBIOTIC_ISSUE_DEBT, 0x7715be0b)                  \
+#define SELECTORS_LIST(X)                \
+    X(SYMBIOTIC_DEPOSIT, 0x47e7ef24)     \
+    X(SYMBIOTIC_DEPOSIT_SIG, 0xc5758489) \
+    X(SYMBIOTIC_ISSUE_DEBT, 0x7715be0b)  \
     X(SYMBIOTIC_WITHDRAW, 0xf3fef3a3)
 
 // Xmacro helpers to define the enum and map
